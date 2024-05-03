@@ -73,50 +73,112 @@ const flowMenuRest = addKeyword(EVENTS.ACTION)
 
 const flowCucarachas = addKeyword(EVENTS.ACTION)
     .addAnswer(cucarachas)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 const flowChinches = addKeyword(EVENTS.ACTION)
     .addAnswer(chinches)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 
 
 const flowAlacranes = addKeyword(EVENTS.ACTION)
     .addAnswer(alacranes)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 const flowMoscas = addKeyword(EVENTS.ACTION)
     .addAnswer(moscas)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 
 const flowMosquitos = addKeyword(EVENTS.ACTION)
     .addAnswer(mosquitos)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 
 const flowRatones = addKeyword(EVENTS.ACTION)
     .addAnswer(ratones)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 
 const flowArañasvn = addKeyword(EVENTS.ACTION)
     .addAnswer(arañas)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 
 const flowPulgas = addKeyword(EVENTS.ACTION)
     .addAnswer(pulgas)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
 
 
 const flowCienpies = addKeyword(EVENTS.ACTION)
     .addAnswer(cienpies)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 
 const flowHormigas = addKeyword(EVENTS.ACTION)
     .addAnswer(hormigas)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 
 const flowGarrapatas = addKeyword(EVENTS.ACTION)
     .addAnswer(garrapatas)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
 
 
 
     const flowArañaViolinista = addKeyword(EVENTS.ACTION)
     .addAnswer(arañaviolinista)
+    .addAnswer('¿En qué *fraccionamiento* y cuál es el *municipio* en el que se  encuentran?')
+
+
+
+// Flujo para Información de Plagas
+const flowPlagas = addKeyword(EVENTS.ACTION)
+    .addAnswer("Aquí puedes encontrar información sobre las plagas más comunes...") 
+    // Agregar más información sobre las plagas o opciones para acceder a información específica
+    .addAnswer("¿Deseas información sobre alguna plaga en particular?"); 
+
+// Flujo para Costos de los Servicios
+const flowCostos = addKeyword(EVENTS.ACTION)
+    .addAnswer("Los costos de nuestros servicios varían según el tipo de plaga y el tamaño del área a tratar.")
+    // Agregar más información sobre los costos o opciones para obtener una cotización
+    .addAnswer("¿Te gustaría obtener una cotización personalizada?");
+
+// Flujo para Agendar una Cita
+const flowCita = addKeyword(EVENTS.ACTION)
+    .addAnswer("Para agendar una cita, necesitamos algunos datos...")
+    // Agregar preguntas para recopilar información como nombre, teléfono, dirección, etc.
+    .addAnswer("¿Cuál es tu nombre y número de teléfono?");
+
+// Flujo para Formas de Pago
+const flowPagos = addKeyword(EVENTS.ACTION)
+    .addAnswer("Aceptamos diversas formas de pago, incluyendo...")
+    // Listar las formas de pago disponibles
+    .addAnswer("¿Qué forma de pago prefieres?");
+
+// Flujo para Cuentas para Transferencias
+const flowCuentas = addKeyword(EVENTS.ACTION)
+    .addAnswer("Puedes realizar transferencias a las siguientes cuentas bancarias...")
+    // Listar las cuentas bancarias disponibles
+    .addAnswer("¿A qué cuenta deseas realizar la transferencia?");
+
+// Flujo para Hablar con un Ejecutivo
+const flowEjecutivo = addKeyword(EVENTS.ACTION)
+    .addAnswer("Para hablar con un ejecutivo, puedes llamar al siguiente número...") 
+    // Proporcionar el número de teléfono
+    .addAnswer("¿Deseas que te conectemos con un ejecutivo ahora?");
+
+
 
 
 
@@ -137,13 +199,13 @@ const flowWelcome = addKeyword(EVENTS.WELCOME)
     },
         async (ctx, ctxFn) => {
             if (ctx.body.includes("fumiga")) {
-                return gotoFlow(menuFlow);
+                return gotoFlow(menuFlowFumiga);
             } else {
                 await ctxFn.flowDynamic("Escribe *Menu* para continuar")
             }
         })
 
-        const menuFlow = addKeyword("Menu").addAnswer(
+        const menuFlowFumiga = addKeyword("Fumiga").addAnswer(
             menu,
             { capture: true },
             async (ctx, { gotoFlow, fallBack, flowDynamic }) => {
@@ -193,14 +255,59 @@ const flowWelcome = addKeyword(EVENTS.WELCOME)
         );
         
 
+        const menuFlow = addKeyword("menu").addAnswer(
+            "**Menú Principal:**\n" +
+            "1. Información de las Plagas\n" +
+            "2. Costos de los Servicios\n" +
+            "3. Agendar una Cita\n" +
+            "4. Formas de Pago\n" +
+            "5. Cuentas para Transferencias\n" +
+            "6. Hablar con un Ejecutivo\n" +
+            "0. Salir", 
+            { capture: true },
+            async (ctx, { gotoFlow, fallBack, flowDynamic }) => {
+                const validResponses = ["1", "2", "3", "4", "5", "6", "0"];
+                if (!validResponses.includes(ctx.body)) {
+                    return fallBack(
+                        "Respuesta no válida, por favor selecciona una de las opciones."
+                    );
+                }
+                switch (ctx.body) {
+                    case "1":
+                        // Aquí deberías reemplazar esto con la acción que desees para "Información de las Plagas"
+                        return gotoFlow(flowPlagas); // Ejemplo: si tienes un flujo llamado flowPlagas
+                    case "2":
+                        // Acción para "Costos de los Servicios"
+                        return gotoFlow(flowCostos); // Ejemplo
+                    case "3":
+                        // Acción para "Agendar una Cita"
+                        return gotoFlow(flowCita); // Ejemplo
+                    case "4":
+                        // Acción para "Formas de Pago"
+                        return gotoFlow(flowPagos); // Ejemplo
+                    case "5":
+                        // Acción para "Cuentas para Transferencias"
+                        return gotoFlow(flowCuentas); // Ejemplo
+                    case "6":
+                        // Acción para "Hablar con un Ejecutivo"
+                        return gotoFlow(flowEjecutivo); // Ejemplo
+                    case "0":
+                        return await flowDynamic(
+                            "Saliendo... Puedes volver a acceder a este menú escribiendo '*Menu*'"
+                        );
+                }
+            }
+        );
+        
+
 const main = async () => {
     const adapterDB = new MongoAdapter({
         dbUri: process.env.MONGO_DB_URI,
         dbName: "YoutubeTest"
     })
     const adapterFlow = createFlow([
-        flowWelcome, 
-        menuFlow, 
+        flowWelcome,
+        menuFlowFumiga, 
         flowMenuRest, 
         flowConsultas, 
         flowVoice,
@@ -211,9 +318,15 @@ const main = async () => {
         flowArañasvn,
         flowPulgas,
         flowCienpies,
-        flowHormigas,
-        flowGarrapatas,
-        flowArañaViolinista
+        flowHormigas, // <-- Nuevo flujo agregado
+        flowGarrapatas, // <-- Nuevo flujo agregado
+        flowArañaViolinista,
+        flowPlagas, // <-- Nuevo flujo agregado
+        flowCostos, // <-- Nuevo flujo agregado
+        flowCita,   // <-- Nuevo flujo agregado
+        flowPagos,  // <-- Nuevo flujo agregado
+        flowCuentas // <-- Nuevo flujo agregado
+        // ... agrega cualquier otro flujo que necesites
     ]);
     
     const adapterProvider = createProvider(BaileysProvider)
