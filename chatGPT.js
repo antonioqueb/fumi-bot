@@ -10,7 +10,7 @@ const chat = async (prompt) => {
     };
     const headers = {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GEMINI_API_KEY}` // Asegúrate de que GEMINI_API_KEY está correctamente definida en tu .env
+        'Authorization': `Bearer ${process.env.GEMINIPRO}` // Asegúrate de que GEMINIPRO está correctamente definida en tu .env
     };
 
     try {
