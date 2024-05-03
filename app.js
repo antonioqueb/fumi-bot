@@ -147,7 +147,7 @@ const flowWelcome = addKeyword(EVENTS.WELCOME)
             menu,
             { capture: true },
             async (ctx, { gotoFlow, fallBack, flowDynamic }) => {
-                const validResponses = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "0"];
+                const validResponses = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13", "0"];
                 if (!validResponses.includes(ctx.body)) {
                     return fallBack(
                         "Respuesta no válida, por favor selecciona una de las opciones."
@@ -159,25 +159,27 @@ const flowWelcome = addKeyword(EVENTS.WELCOME)
                     case "2":
                         return gotoFlow(flowChinches);
                     case "3":
-                        return gotoFlow(flowAlacranes);
+                        return gotoFlow(flowChinches);
                     case "4":
-                        return gotoFlow(flowMoscas);
+                        return gotoFlow(flowAlacranes);
                     case "5":
-                        return gotoFlow(flowMosquitos);
+                        return gotoFlow(flowMoscas);
                     case "6":
-                        return gotoFlow(flowRatones);
+                        return gotoFlow(flowMosquitos);
                     case "7":
-                        return gotoFlow(flowArañasvn);
+                        return gotoFlow(flowRatones);
                     case "8":
-                        return gotoFlow(flowPulgas);
+                        return gotoFlow(flowArañasvn);
                     case "9":
-                        return gotoFlow(flowCienpies);
+                        return gotoFlow(flowPulgas);
                     case "10":
-                        return gotoFlow(flowHormigas);
+                        return gotoFlow(flowCienpies);
                     case "11":
-                        return gotoFlow(flowGarrapatas);
+                        return gotoFlow(flowHormigas);
                     case "12":
-                        return gotoFlow(flowArañaViolinista);
+                        return gotoFlow(flowGarrapatas);
+                    case "13":
+                        return gotoFlow(flowArañaViolinista)
                 
                     case "0":
                         return await flowDynamic(
