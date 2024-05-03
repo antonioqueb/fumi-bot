@@ -16,40 +16,40 @@ const menu = fs.readFileSync(menuPath, "utf8")
 // Catalogo de plagas
 // 1
 const alacranesPath = path.join(__dirname, "mensajes", "alacranes.txt")
-const alacranes = fs.readFileSync(menuPath, "utf8")
+const alacranes = fs.readFileSync(alacranesPath, "utf8")
 // 2
 const arañasPath = path.join(__dirname, "mensajes", "arañas.txt")
-const arañas = fs.readFileSync(menuPath, "utf8")
+const arañas = fs.readFileSync(arañasPath, "utf8")
 // 3
 const arañaviolinistaPath = path.join(__dirname, "mensajes", "arañaviolinista.txt")
-const arañaviolinista = fs.readFileSync(menuPath, "utf8")
+const arañaviolinista = fs.readFileSync(arañaviolinistaPath, "utf8")
 // 4
 const chinchesPath = path.join(__dirname, "mensajes", "chinches.txt")
-const chinches = fs.readFileSync(menuPath, "utf8")
+const chinches = fs.readFileSync(chinchesPath, "utf8")
 // 5
 const cienpiesPath = path.join(__dirname, "mensajes", "cienpies.txt")
-const cienpies = fs.readFileSync(menuPath, "utf8")
+const cienpies = fs.readFileSync(cienpiesPath, "utf8")
 // 6
 const cucarachasPath = path.join(__dirname, "mensajes", "cucarachas.txt")
-const cucarachas = fs.readFileSync(menuPath, "utf8")
+const cucarachas = fs.readFileSync(cucarachasPath, "utf8")
 // 7
 const garrapatasPath = path.join(__dirname, "mensajes", "garrapatas.txt")
-const garrapatas = fs.readFileSync(menuPath, "utf8")
+const garrapatas = fs.readFileSync(garrapatasPath, "utf8")
 // 8
 const hormigasPath = path.join(__dirname, "mensajes", "hormigas.txt")
-const hormigas = fs.readFileSync(menuPath, "utf8")
+const hormigas = fs.readFileSync(hormigasPath, "utf8")
 // 9
 const moscasPath = path.join(__dirname, "mensajes", "moscas.txt")
-const moscas = fs.readFileSync(menuPath, "utf8")
+const moscas = fs.readFileSync(moscasPath, "utf8")
 // 10
 const mosquitosPath = path.join(__dirname, "mensajes", "mosquitos.txt")
-const mosquitos = fs.readFileSync(menuPath, "utf8")
+const mosquitos = fs.readFileSync(mosquitosPath, "utf8")
 // 11
 const pulgasPath = path.join(__dirname, "mensajes", "pulgas.txt")
-const pulgas = fs.readFileSync(menuPath, "utf8")
+const pulgas = fs.readFileSync(pulgasPath, "utf8")
 // 12
 const ratonesPath = path.join(__dirname, "mensajes", "ratones.txt")
-const ratones = fs.readFileSync(menuPath, "utf8")
+const ratones = fs.readFileSync(ratonesPath, "utf8")
 
 
 
