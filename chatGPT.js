@@ -2,10 +2,9 @@ const axios = require('axios');
 require('dotenv').config();
 
 const chat = async (prompt) => {
-    const url = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent';
+    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINIPRO}`;
     const headers = {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.GEMINIPRO}`  // Asegúrate de que GEMINI_API_KEY está en tu archivo .env
+        'Content-Type': 'application/json'
     };
     const data = {
         contents: [{
