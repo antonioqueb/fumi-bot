@@ -1,3 +1,6 @@
+¿Qué tipo de plaga tienen o qué insectos o roedores han encontrado?
+
+Escriba el número selecionado:
 *1*.-CUCARACHAS
 *2*.- CHINCHE DE CAMA
 *3*.- CHINES & CUCARACHAS
