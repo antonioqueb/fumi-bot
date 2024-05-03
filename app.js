@@ -11,11 +11,14 @@ console.log("Cargando mensajes...");
 
 const menuPath = path.join(__dirname, "mensajes", "menu.txt");
 const menu = fs.readFileSync(menuPath, "utf8");
+console.log("Menú cargado:", menu);
+
 
 console.log("Mensajes cargados correctamente.");
 
 const flowBienvenida = addKeyword(["Fumiga", "Fumigación"])
-    .addAnswer("Hola qué tal como se encuentran el día de hoy!, soy *Carlos Moreno*, estoy a sus órdenes. ¿Con quién tengo el gusto? ¿Qué tipo de *plaga tienen* o qué insectos o roedores han encontrado?");
+    .addAnswer(`Hola qué tal como se encuentran el día de hoy!, soy *Carlos Moreno*, estoy a sus órdenes. ¿Con quién tengo el gusto? ¿Qué tipo de *plaga tienen* o qué insectos o roedores han encontrado?\n${menu}`);
+
 
 const flowIdentificarPlaga = addKeyword(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"])
     .addAnswer((ctx) => {
