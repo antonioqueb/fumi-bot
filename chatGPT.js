@@ -1,5 +1,5 @@
-require('dotenv').config(); // Asegúrate de que esto esté al principio de tu archivo
 const axios = require('axios');
+require('dotenv').config();
 
 const chat = async (prompt) => {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINIPRO}`;
@@ -8,20 +8,17 @@ const chat = async (prompt) => {
     };
     const data = {
         prompt: prompt,
-        length: 50
+        length: 50  // Asegúrate de que este es el parámetro correcto según la documentación de la API
     };
 
-    console.log('Enviando solicitud a la API con los siguientes datos:', data); // Log de la solicitud
-
     try {
+        console.log('Enviando solicitud:', data);
         const response = await axios.post(url, data, { headers });
-        console.log('Respuesta de la API:', response.data); // Log de la respuesta
         return response.data;
     } catch (error) {
-        console.error('Error en la solicitud:', error);
+        console.error('Error en la solicitud:', error.response ? error.response.data : error.message);
         return null;
     }
 };
-
 
 module.exports = chat;
