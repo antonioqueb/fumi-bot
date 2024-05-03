@@ -1,99 +1,71 @@
-const { createBot, createProvider, createFlow, addKeyword, EVENTS } = require('@bot-whatsapp/bot')
-require("dotenv").config
+const { createBot, createProvider, createFlow, addKeyword, EVENTS } = require('@bot-whatsapp/bot');
+require("dotenv").config();
 
-const QRPortalWeb = require('@bot-whatsapp/portal')
-const BaileysProvider = require('@bot-whatsapp/provider/baileys')
-//const MockAdapter = require('@bot-whatsapp/database/mock')
-const MongoAdapter = require('@bot-whatsapp/database/mongo')
-const path = require("path")
-const fs = require("fs")
-const chat = require("./chatGPT")
-const { handlerAI } = require("./whisper")
+const QRPortalWeb = require('@bot-whatsapp/portal');
+const BaileysProvider = require('@bot-whatsapp/provider/baileys');
+const MongoAdapter = require('@bot-whatsapp/database/mongo');
+const path = require("path");
+const fs = require("fs");
 
-const menuPath = path.join(__dirname, "mensajes", "menu.txt")
-const menu = fs.readFileSync(menuPath, "utf8")
+console.log("Cargando mensajes...");
 
-const pathConsultas = path.join(__dirname, "mensajes", "promptConsultas.txt")
-const promptConsultas = fs.readFileSync(pathConsultas, "utf8")
+const menuPath = path.join(__dirname, "mensajes", "menu.txt");
+const menu = fs.readFileSync(menuPath, "utf8");
 
-const flowVoice = addKeyword(EVENTS.VOICE_NOTE).addAnswer("Esta es una nota de voz", null, async (ctx, ctxFn) => {
-    const text = await handlerAI(ctx)
-    const prompt = promptConsultas
-    const consulta = text
-    const answer = await chat(prompt, consulta)
-    await ctxFn.flowDynamic(answer.content)
-})
+console.log("Mensajes cargados correctamente.");
 
-const flowMenuRest = addKeyword(EVENTS.ACTION)
-    .addAnswer('Este es el menu', {
-        media: "https://www.ujamaaresort.org/wp-content/uploads/2018/01/Ujamaa-restaurant-menu.pdf"
-    })
+const flowBienvenida = addKeyword(["Fumiga", "Fumigación"])
+    .addAnswer("Hola qué tal como se encuentran el día de hoy!, soy *Carlos Moreno*, estoy a sus órdenes. ¿Con quién tengo el gusto? ¿Qué tipo de *plaga tienen* o qué insectos o roedores han encontrado?");
 
-const flowReservar = addKeyword(EVENTS.ACTION)
-    .addAnswer('Este es el flow reservas: ww.hacetureserva.com')
+const flowIdentificarPlaga = addKeyword(["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13"])
+    .addAnswer((ctx) => {
+        const plagaInfo = {
+            "1": "LAS CUCARACHAS\nExisten más de 4,600 especies en el mundo...\n[Continúa con información detallada]",
+            "2": "CHINCHES DE CAMA\nLas Chinches solo se alimentan de sangre...\n[Continúa con información detallada]",
+            "3": "CHINES & CUCARACHAS\n[Información detallada]",
+            "4": "ALACRANES\n[Información detallada]",
+            "5": "MOSCAS\n[Información detallada]",
+            "6": "MOSQUITOS & ZANCUDOS\n[Información detallada]",
+            "7": "RATONES\n[Información detallada]",
+            "8": "ARAÑAS VIUDA NEGRA\n[Información detallada]",
+            "9": "PULGAS\n[Información detallada]",
+            "10": "CIEMPIES\n[Información detallada]",
+            "11": "HORMIGAS\n[Información detallada]",
+            "12": "GARRAPATAS\n[Información detallada]",
+            "13": "ARAÑA VIOLINISTA\n[Información detallada]"
+        };
+        return plagaInfo[ctx.body] || "No tengo información sobre esa opción, ¿puedo ayudarte con algo más?";
+    });
 
-
-const flowConsultas = addKeyword(EVENTS.ACTION)
-    .addAnswer('Este es el flow consultas')
-    .addAnswer("Hace tu consulta", { capture: true }, async (ctx, ctxFn) => {
-        const prompt = promptConsultas
-        const consulta = ctx.body
-        const answer = await chat(prompt, consulta)
-        await ctxFn.flowDynamic(answer.content)
-    })
-
-
-const flowWelcome = addKeyword(EVENTS.WELCOME)
-    .addAnswer("Este es el flujo Welcome", {
-        delay: 100,
-    },
-        async (ctx, ctxFn) => {
-            if (ctx.body.includes("Casas")) {
-                await ctxFn.flowDynamic("Escribiste casas")
-            } else {
-                await ctxFn.flowDynamic("Escribiste otra cosa")
-            }
-        })
-
-const menuFlow = addKeyword("Menu").addAnswer(
-    menu,
-    { capture: true },
-    async (ctx, { gotoFlow, fallBack, flowDynamic }) => {
-        if (!["1", "2", "3", "0"].includes(ctx.body)) {
-            return fallBack(
-                "Respuesta no válida, por favor selecciona una de las opciones."
-            );
-        }
-        switch (ctx.body) {
-            case "1":
-                return gotoFlow(flowMenuRest);
-            case "2":
-                return gotoFlow(flowReservar);
-            case "3":
-                return gotoFlow(flowConsultas);
-            case "0":
-                return await flowDynamic(
-                    "Saliendo... Puedes volver a acceder a este menú escribiendo '*Menu*'"
-                );
-        }
-    }
-);
+const flowConsultaLugar = addKeyword("fraccionamiento")
+    .addAnswer("¿En qué *fraccionamiento* y cuál es el *municipio* en el que se encuentran?", {
+        capture: true
+    });
 
 const main = async () => {
     const adapterDB = new MongoAdapter({
         dbUri: process.env.MONGO_DB_URI,
-        dbName: "YoutubeTest"
-    })
-    const adapterFlow = createFlow([flowWelcome, menuFlow, flowMenuRest, flowReservar, flowConsultas, flowVoice])
-    const adapterProvider = createProvider(BaileysProvider)
+        dbName: "alphaqueb_db"
+    });
+    console.log("Conexión con la base de datos establecida.");
+
+    const adapterFlow = createFlow([flowBienvenida, flowIdentificarPlaga, flowConsultaLugar]);
+    const adapterProvider = createProvider(BaileysProvider, {
+        onConnected: () => console.log("Proveedor conectado correctamente."),
+        onConnectionLost: err => console.error("Conexión con el proveedor perdida:", err)
+    });
 
     createBot({
         flow: adapterFlow,
         provider: adapterProvider,
         database: adapterDB,
-    })
+    });
 
-    QRPortalWeb()
+    QRPortalWeb();
+    console.log("Portal QR activo.");
 }
 
-main()
+main().catch(err => {
+    console.error("Error durante la ejecución del bot:", err);
+});
+

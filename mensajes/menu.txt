@@ -1,7 +1,14 @@
-Elegi alguna de estas opciones:
+1.-CUCARACHAS
+2.- CHINCHE DE CAMA
+3.- CHINES & CUCARACHAS
+4.- ALACRANES
+5.- MOSCAS.
+6.- MOSQUITOS & ZANCUDOS.
+7.- RATONES.
+8.- ARAÑAS VIUDA NEGRA
+9.- PULGAS.
+10.- CIEMPIES.
+11.- HORMIGAS.
+12.- GARRAPATAS.
+13.- ARAÑA VIOLINISTA.
 
-Opcion 1 - Menu
-Opcion 2 - Reservar mesa
-Opcion 3 - Hacer consultas
-
-Opcion 0 - Salir
