@@ -53,12 +53,6 @@ const ratones = fs.readFileSync(ratonesPath, "utf8")
 
 
 
-
-
-
-
-
-
 const pathConsultas = path.join(__dirname, "mensajes", "promptConsultas.txt")
 const promptConsultas = fs.readFileSync(pathConsultas, "utf8")
 
@@ -75,8 +69,56 @@ const flowMenuRest = addKeyword(EVENTS.ACTION)
         media: "https://www.ujamaaresort.org/wp-content/uploads/2018/01/Ujamaa-restaurant-menu.pdf"
     })
 
-const flowReservar = addKeyword(EVENTS.ACTION)
+
+
+const flowCucarachas = addKeyword(EVENTS.ACTION)
     .addAnswer(cucarachas)
+
+const flowChinches = addKeyword(EVENTS.ACTION)
+    .addAnswer(chinches)
+
+
+
+const flowAlacranes = addKeyword(EVENTS.ACTION)
+    .addAnswer(alacranes)
+
+const flowMoscas = addKeyword(EVENTS.ACTION)
+    .addAnswer(moscas)
+
+
+const flowMosquitos = addKeyword(EVENTS.ACTION)
+    .addAnswer(mosquitos)
+
+
+const flowRatones = addKeyword(EVENTS.ACTION)
+    .addAnswer(ratones)
+
+
+const flowArañasvn = addKeyword(EVENTS.ACTION)
+    .addAnswer(arañas)
+
+
+const flowPulgas = addKeyword(EVENTS.ACTION)
+    .addAnswer(pulgas)
+
+
+const flowCienpies = addKeyword(EVENTS.ACTION)
+    .addAnswer(cienpies)
+
+
+const flowHormigas = addKeyword(EVENTS.ACTION)
+    .addAnswer(hormigas)
+
+
+const flowGarrapatas = addKeyword(EVENTS.ACTION)
+    .addAnswer(garrapatas)
+
+
+
+    const flowArañaViolinista = addKeyword(EVENTS.ACTION)
+    .addAnswer(arañaviolinista)
+
+
 
 
 const flowConsultas = addKeyword(EVENTS.ACTION)
@@ -90,47 +132,86 @@ const flowConsultas = addKeyword(EVENTS.ACTION)
 
 
 const flowWelcome = addKeyword(EVENTS.WELCOME)
-    .addAnswer("Este es el flujo Welcome", {
+    .addAnswer("Hola qué tal como se encuentran el día de hoy!, soy _*Carlos Moreno*_, estoy a sus órdenes. ¿Con quien tengo el gusto?", {
         delay: 100,
     },
         async (ctx, ctxFn) => {
-            if (ctx.body.includes("Casas")) {
-                await ctxFn.flowDynamic("Escribiste casas")
+            if (ctx.body.includes("menuFlow")) {
+                return gotoFlow(flowMoscas);
             } else {
-                await ctxFn.flowDynamic("Escribiste otra cosa")
+                await ctxFn.flowDynamic("Escribe *Menu* para continuar")
             }
         })
 
-const menuFlow = addKeyword("Menu").addAnswer(
-    menu,
-    { capture: true },
-    async (ctx, { gotoFlow, fallBack, flowDynamic }) => {
-        if (!["1", "2", "3", "0"].includes(ctx.body)) {
-            return fallBack(
-                "Respuesta no válida, por favor selecciona una de las opciones."
-            );
-        }
-        switch (ctx.body) {
-            case "1":
-                return gotoFlow(flowMenuRest);
-            case "2":
-                return gotoFlow(flowReservar);
-            case "3":
-                return gotoFlow(flowConsultas);
-            case "0":
-                return await flowDynamic(
-                    "Saliendo... Puedes volver a acceder a este menú escribiendo '*Menu*'"
-                );
-        }
-    }
-);
+        const menuFlow = addKeyword("Menu").addAnswer(
+            menu,
+            { capture: true },
+            async (ctx, { gotoFlow, fallBack, flowDynamic }) => {
+                const validResponses = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "0"];
+                if (!validResponses.includes(ctx.body)) {
+                    return fallBack(
+                        "Respuesta no válida, por favor selecciona una de las opciones."
+                    );
+                }
+                switch (ctx.body) {
+                    case "1":
+                        return gotoFlow(flowCucarachas);
+                    case "2":
+                        return gotoFlow(flowChinches);
+                    case "3":
+                        return gotoFlow(flowAlacranes);
+                    case "4":
+                        return gotoFlow(flowMoscas);
+                    case "5":
+                        return gotoFlow(flowMosquitos);
+                    case "6":
+                        return gotoFlow(flowRatones);
+                    case "7":
+                        return gotoFlow(flowArañasvn);
+                    case "8":
+                        return gotoFlow(flowPulgas);
+                    case "9":
+                        return gotoFlow(flowCienpies);
+                    case "10":
+                        return gotoFlow(flowHormigas);
+                    case "11":
+                        return gotoFlow(flowGarrapatas);
+                    case "12":
+                        return gotoFlow(flowArañaViolinista);
+                
+                    case "0":
+                        return await flowDynamic(
+                            "Saliendo... Puedes volver a acceder a este menú escribiendo '*Menu*'"
+                        );
+                }
+            }
+        );
+        
 
 const main = async () => {
     const adapterDB = new MongoAdapter({
         dbUri: process.env.MONGO_DB_URI,
         dbName: "YoutubeTest"
     })
-    const adapterFlow = createFlow([flowWelcome, menuFlow, flowMenuRest, flowReservar, flowConsultas, flowVoice])
+    const adapterFlow = createFlow([
+        flowWelcome, 
+        menuFlow, 
+        flowMenuRest, 
+        flowReservar, 
+        flowConsultas, 
+        flowVoice,
+        flowAlacranes,
+        flowMoscas,
+        flowMosquitos,
+        flowRatones,
+        flowArañasvn,
+        flowPulgas,
+        flowCienpies,
+        flowHormigas,
+        flowGarrapatas,
+        flowArañaViolinista
+    ]);
+    
     const adapterProvider = createProvider(BaileysProvider)
 
     createBot({
