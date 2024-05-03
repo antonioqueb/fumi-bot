@@ -13,6 +13,52 @@ const { handlerAI } = require("./whisper")
 const menuPath = path.join(__dirname, "mensajes", "menu.txt")
 const menu = fs.readFileSync(menuPath, "utf8")
 
+// Catalogo de plagas
+// 1
+const alacranesPath = path.join(__dirname, "mensajes", "alacranes.txt")
+const alacranes = fs.readFileSync(menuPath, "utf8")
+// 2
+const arañasPath = path.join(__dirname, "mensajes", "arañas.txt")
+const arañas = fs.readFileSync(menuPath, "utf8")
+// 3
+const arañaviolinistaPath = path.join(__dirname, "mensajes", "arañaviolinista.txt")
+const arañaviolinista = fs.readFileSync(menuPath, "utf8")
+// 4
+const chinchesPath = path.join(__dirname, "mensajes", "chinches.txt")
+const chinches = fs.readFileSync(menuPath, "utf8")
+// 5
+const cienpiesPath = path.join(__dirname, "mensajes", "cienpies.txt")
+const cienpies = fs.readFileSync(menuPath, "utf8")
+// 6
+const cucarachasPath = path.join(__dirname, "mensajes", "cucarachas.txt")
+const cucarachas = fs.readFileSync(menuPath, "utf8")
+// 7
+const garrapatasPath = path.join(__dirname, "mensajes", "garrapatas.txt")
+const garrapatas = fs.readFileSync(menuPath, "utf8")
+// 8
+const hormigasPath = path.join(__dirname, "mensajes", "hormigas.txt")
+const hormigas = fs.readFileSync(menuPath, "utf8")
+// 9
+const moscasPath = path.join(__dirname, "mensajes", "moscas.txt")
+const moscas = fs.readFileSync(menuPath, "utf8")
+// 10
+const mosquitosPath = path.join(__dirname, "mensajes", "mosquitos.txt")
+const mosquitos = fs.readFileSync(menuPath, "utf8")
+// 11
+const pulgasPath = path.join(__dirname, "mensajes", "pulgas.txt")
+const pulgas = fs.readFileSync(menuPath, "utf8")
+// 12
+const ratonesPath = path.join(__dirname, "mensajes", "ratones.txt")
+const ratones = fs.readFileSync(menuPath, "utf8")
+
+
+
+
+
+
+
+
+
 const pathConsultas = path.join(__dirname, "mensajes", "promptConsultas.txt")
 const promptConsultas = fs.readFileSync(pathConsultas, "utf8")
 
@@ -30,7 +76,7 @@ const flowMenuRest = addKeyword(EVENTS.ACTION)
     })
 
 const flowReservar = addKeyword(EVENTS.ACTION)
-    .addAnswer('Este es el flow reservas: ww.hacetureserva.com')
+    .addAnswer(cucarachas)
 
 
 const flowConsultas = addKeyword(EVENTS.ACTION)
