@@ -136,8 +136,8 @@ const flowWelcome = addKeyword(EVENTS.WELCOME)
         delay: 100,
     },
         async (ctx, ctxFn) => {
-            if (ctx.body.includes("menuFlow")) {
-                return gotoFlow(flowMoscas);
+            if (ctx.body.includes("fumiga")) {
+                return gotoFlow(menuFlow);
             } else {
                 await ctxFn.flowDynamic("Escribe *Menu* para continuar")
             }
@@ -197,7 +197,6 @@ const main = async () => {
         flowWelcome, 
         menuFlow, 
         flowMenuRest, 
-        flowReservar, 
         flowConsultas, 
         flowVoice,
         flowAlacranes,
