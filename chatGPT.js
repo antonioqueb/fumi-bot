@@ -1,4 +1,5 @@
 require('dotenv').config(); // Asegúrate de que esto esté al principio de tu archivo
+const axios = require('axios');
 
 const chat = async (prompt) => {
     const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINIPRO}`;
