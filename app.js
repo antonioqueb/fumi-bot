@@ -147,7 +147,7 @@ const flowWelcome = addKeyword(EVENTS.WELCOME)
             menu,
             { capture: true },
             async (ctx, { gotoFlow, fallBack, flowDynamic }) => {
-                const validResponses = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13", "0"];
+                const validResponses = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12","13", "14","0"];
                 if (!validResponses.includes(ctx.body)) {
                     return fallBack(
                         "Respuesta no válida, por favor selecciona una de las opciones."
@@ -180,6 +180,9 @@ const flowWelcome = addKeyword(EVENTS.WELCOME)
                         return gotoFlow(flowGarrapatas);
                     case "13":
                         return gotoFlow(flowArañaViolinista);
+                    case "14":
+                        return gotoFlow(flowConsultas);
+                        
                 
                     case "0":
                         return await flowDynamic(
