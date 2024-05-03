@@ -1,7 +1,6 @@
 FROM node:18-bullseye as bot
 WORKDIR /app
 COPY package*.json ./
-RUN npm i @google/generative-ai
 RUN npm i
 # Instalar dockerize
 RUN apt-get update && apt-get install -y wget && \
