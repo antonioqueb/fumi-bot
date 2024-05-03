@@ -325,7 +325,8 @@ const main = async () => {
         flowCostos, // <-- Nuevo flujo agregado
         flowCita,   // <-- Nuevo flujo agregado
         flowPagos,  // <-- Nuevo flujo agregado
-        flowCuentas // <-- Nuevo flujo agregado
+        flowCuentas, // <-- Nuevo flujo agregado
+        menuFlow
         // ... agrega cualquier otro flujo que necesites
     ]);
     
