@@ -1,24 +1,19 @@
-const axios = require('axios');
-require('dotenv').config();
+const { GoogleGenerativeAI } = require("@google/generative-ai");
 
-const chat = async (prompt) => {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=${process.env.GEMINIPRO}`;
-    const headers = {
-        'Content-Type': 'application/json'
-    };
-    const data = {
-        prompt: prompt,
-        length: 50  // Asegúrate de que este es el parámetro correcto según la documentación de la API
-    };
+// Asegúrate de tener configurada tu clave de API como una variable de entorno
+const genAI = new GoogleGenerativeAI(process.env.GEMINIPRO);
 
-    try {
-        console.log('Enviando solicitud:', data);
-        const response = await axios.post(url, data, { headers });
-        return response.data;
-    } catch (error) {
-        console.error('Error en la solicitud:', error.response ? error.response.data : error.message);
-        return null;
-    }
-};
+async function chat(prompt) {
+  const model = genAI.getGenerativeModel({ model: "gemini-pro" });
+
+  try {
+    console.log('Enviando solicitud con el prompt:', prompt);
+    const result = await model.generateContent(prompt);
+    return result;  // Retorna el resultado directamente
+  } catch (error) {
+    console.error('Error en la solicitud:', error);
+    return null;  // Retorna null en caso de error
+  }
+}
 
 module.exports = chat;
